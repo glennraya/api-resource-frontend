@@ -17,9 +17,9 @@ This is a React frontend application built with Vite that connects to a Laravel 
 Make sure you have the following running:
 
 1. **Laravel API Backend** (should be running on `http://localhost:8000`)
-   - Laravel 12 with Sanctum configured
-   - CORS properly configured for `http://localhost:5173`
-   - Database migrations run
+    - Laravel 12 with Sanctum configured
+    - CORS properly configured for `http://localhost:5173`
+    - Database migrations run
 
 2. **Node.js** (version 16 or higher)
 
@@ -27,15 +27,15 @@ Make sure you have the following running:
 
 1. **Install dependencies:**
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 2. **Start the development server:**
 
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
 3. **Open your browser:**
    Navigate to `http://localhost:5173`
@@ -90,16 +90,16 @@ The app connects to your Laravel API with the following configuration:
 
 1. **Start Laravel API:**
 
-   ```bash
-   # In your Laravel project directory
-   php artisan serve
-   ```
+    ```bash
+    # In your Laravel project directory
+    php artisan serve
+    ```
 
 2. **Start React Frontend:**
-   ```bash
-   # In this directory
-   npm run dev
-   ```
+    ```bash
+    # In this directory
+    npm run dev
+    ```
 
 ### Environment Configuration
 
@@ -150,7 +150,7 @@ The built files will be in the `dist/` directory.
 
 ## Technologies Used
 
-- **React 18** - UI library
+- **React 19** - UI library
 - **Vite** - Build tool and dev server
 - **React Router DOM** - Client-side routing
 - **Axios** - HTTP client for API calls
