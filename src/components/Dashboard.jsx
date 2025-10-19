@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuth } from "../contexts/AuthContext";
 import Navigation from "./Navigation";
+import { useAuth } from "../contexts/AuthContext";
 const Dashboard = () => {
     const { loading } = useAuth();
     const { user } = useAuth();
@@ -14,13 +14,13 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen">
             {/* Navigation */}
             <Navigation />
 
             {/* Main Content */}
             <main className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                <div className="px-4 py-6 sm:px-0">{user?.name}</div>
+                <div className="px-4 py-6 sm:px-0">{user?.email}</div>
             </main>
         </div>
     );

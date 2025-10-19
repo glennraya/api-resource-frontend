@@ -38,7 +38,7 @@ Make sure you have the following running:
     ```
 
 3. **Open your browser:**
-   Navigate to `http://localhost:5173`
+   Navigate to `http://app.resources.test:4001`
 
 ## Project Structure
 
@@ -105,8 +105,8 @@ The app connects to your Laravel API with the following configuration:
 
 The app is configured to work with:
 
-- Laravel API: `http://localhost:8000`
-- React Frontend: `http://localhost:5173`
+- Laravel API: `http://api-resource.test`
+- React Frontend: `http://app.resources.test:4001`
 
 If you need to change these URLs, update:
 
