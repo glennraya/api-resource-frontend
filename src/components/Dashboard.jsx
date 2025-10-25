@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "./Navigation";
 import { useAuth } from "../contexts/AuthContext";
+
 const Dashboard = () => {
     const { loading } = useAuth();
     const { user } = useAuth();

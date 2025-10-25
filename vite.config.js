@@ -8,16 +8,19 @@ export default defineConfig({
     server: {
         host: "app.resources.test",
         port: 4001,
+        allowedHosts: ["api-resource.test", "app.resources.test"],
         proxy: {
             "/api": {
                 target: "http://api-resource.test",
                 changeOrigin: true,
                 secure: false,
+                cookieDomainRewrite: "app.resources.test",
             },
             "/sanctum": {
                 target: "http://api-resource.test",
                 changeOrigin: true,
                 secure: false,
+                cookieDomainRewrite: "app.resources.test",
             },
         },
     },

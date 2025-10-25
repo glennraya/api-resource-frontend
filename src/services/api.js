@@ -3,7 +3,7 @@ import secureStorage from "../utils/secureStorage";
 
 // Create axios instance
 const api = axios.create({
-    baseURL: "http://api-resource.test",
+    baseURL: "", // Use relative URLs to go through Vite proxy
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -11,13 +11,33 @@ const api = axios.create({
     withCredentials: true, // Important for CSRF cookies
 });
 
-// Request interceptor to add auth token
+// Helper function to get CSRF token from cookies
+const getCsrfToken = () => {
+    const name = 'XSRF-TOKEN';
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return decodeURIComponent(parts.pop().split(';').shift());
+    }
+    return null;
+};
+
+// Request interceptor to add auth token and CSRF token
 api.interceptors.request.use(
     (config) => {
         const token = secureStorage.getToken();
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        
+        // Add CSRF token for state-changing requests
+        if (['post', 'put', 'patch', 'delete'].includes(config.method?.toLowerCase())) {
+            const csrfToken = getCsrfToken();
+            if (csrfToken) {
+                config.headers['X-XSRF-TOKEN'] = csrfToken;
+            }
+        }
+        
         return config;
     },
     (error) => {
@@ -28,11 +48,20 @@ api.interceptors.request.use(
 // Response interceptor to handle auth errors
 api.interceptors.response.use(
     (response) => response,
-    (error) => {
+    async (error) => {
         if (error.response?.status === 401) {
             // Session expired or invalid
             secureStorage.clear();
             window.location.href = "/login";
+        } else if (error.response?.status === 419) {
+            // CSRF token mismatch - try to refresh the CSRF cookie and retry
+            try {
+                await api.get("/sanctum/csrf-cookie");
+                // Retry the original request
+                return api.request(error.config);
+            } catch (retryError) {
+                console.error('Failed to refresh CSRF token:', retryError);
+            }
         }
         return Promise.reject(error);
     }
