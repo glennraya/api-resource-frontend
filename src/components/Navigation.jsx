@@ -21,7 +21,7 @@ const Navigation = () => {
                     </div>
                     <div className="flex items-center space-x-4">
                         <span className="text-gray-700">
-                            Welcome, {user?.name}!
+                            Welcome, {user?.first_name}!
                         </span>
                         <button
                             onClick={handleLogout}
